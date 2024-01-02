@@ -64,6 +64,13 @@ export class Address {
   state: string;
 
   @ApiProperty({
+    description: 'The state',
+    example: 'Texas',
+  })
+  @Column()
+  stateCode: string;
+
+  @ApiProperty({
     description: 'The country',
     example: 'US',
   })
