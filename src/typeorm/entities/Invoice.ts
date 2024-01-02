@@ -92,6 +92,13 @@ export class Invoice {
   destination: string;
 
   @ApiProperty({
+    description: 'Bill of Landing/ LR-RR No',
+    example: 'qw123',
+  })
+  @Column()
+  LR_RRNo: string;
+
+  @ApiProperty({
     description: 'The email of the company',
     example: 'abc@gmail.com',
   })

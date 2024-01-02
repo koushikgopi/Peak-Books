@@ -164,6 +164,20 @@ class UpdateAddressDto {
   city: string;
 
   @ApiProperty({
+    description: 'The name of a state',
+    example: 'Texas',
+  })
+  // @IsNotEmpty()
+  state: string;
+
+  @ApiProperty({
+    description: 'The name of a state',
+    example: 'Texas',
+  })
+  // @IsNotEmpty()
+  stateCode: string;
+
+  @ApiProperty({
     description: 'The country',
     example: 'US',
   })
@@ -176,20 +190,6 @@ class UpdateAddressDto {
   })
   // @IsNotEmpty()
   zipCode: string;
-
-  @ApiProperty({
-    description: 'The streetNo.',
-    example: '125',
-  })
-  // @IsNotEmpty()
-  streetNo: string;
-
-  @ApiProperty({
-    description: 'The streetName',
-    example: 'North Elston Avenue',
-  })
-  // @IsNotEmpty()
-  streetName: string;
 
   @ApiProperty({
     description: 'The latitude',
@@ -211,13 +211,6 @@ class UpdateAddressDto {
   })
   // @IsNotEmpty()
   placeId: string;
-
-  @ApiProperty({
-    description: 'The name of a state',
-    example: 'Texas',
-  })
-  // @IsNotEmpty()
-  state: string;
 }
 
 export class UpdateOrganizationAndAddressDto {
