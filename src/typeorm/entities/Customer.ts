@@ -9,6 +9,7 @@ import {
 import { Organization } from './Organization';
 import { Role } from './Role';
 import { Invoice } from './Invoice';
+import { Address } from './Address';
 
 @Entity({ name: 'customers' })
 export class Customer {
@@ -41,6 +42,13 @@ export class Customer {
   companyName: string;
 
   @ApiProperty({
+    description: 'The GST number for the organization',
+    example: '33SDWES2334Q2AW',
+  })
+  @Column()
+  GSTINorUIN: string;
+
+  @ApiProperty({
     description: 'The phone number of the customer',
     example: '9988998899',
   })
@@ -52,7 +60,7 @@ export class Customer {
     example: 'example@gmail.com',
   })
   @Column({ nullable: true })
-  email: string;
+  mailId: string;
 
   @ApiProperty({
     description:
@@ -81,6 +89,10 @@ export class Customer {
   @ApiProperty({ type: Invoice })
   @OneToMany(() => Invoice, (invoice) => invoice.customer)
   invoice: Invoice[];
+
+  @ApiProperty({ type: Address })
+  @OneToMany(() => Address, (address) => address.customer)
+  address: Address[];
 
   @ApiProperty({
     description: 'The created date',

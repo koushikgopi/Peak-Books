@@ -1,6 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Organization } from './Organization';
+import { ProductTax } from './ProductTax';
 
 @Entity({ name: 'products' })
 export class Product {
@@ -16,7 +23,7 @@ export class Product {
     example: 'ACCOUNTING',
   })
   @Column()
-  item: string;
+  itemName: string;
 
   @ApiProperty({
     description: 'The description of the item',
@@ -26,19 +33,32 @@ export class Product {
   description: string;
 
   @ApiProperty({
-    description: 'The  Unit, Hour, Flat rate of the item',
-    example: 'good item',
+    description: 'The HSN code of the item',
+    example: '1233432',
+  })
+  @Column()
+  HSNorSAC: string;
+
+  @ApiProperty({
+    description: 'The  Unit, Hour, Kg, Flat rate of the item',
+    example: 'kg',
   })
   @Column()
   unit: string;
 
   @ApiProperty({
-    description:
-      'This is the  boolean  data type with two possible outcome true or false',
-    example: true,
+    description: 'The  Unit, Hour, Kg, Flat rate of the item',
+    example: 'kg',
   })
   @Column()
-  taxable: boolean;
+  packagingType: string;
+
+  @ApiProperty({
+    description: 'The  Unit, Hour, Kg, Flat rate of the item',
+    example: 'kg',
+  })
+  @Column()
+  numberOfPackage: string;
 
   @ApiProperty({
     description: 'The  quantity of the item',
@@ -54,9 +74,28 @@ export class Product {
   @Column()
   rate: number;
 
+  @ApiProperty({
+    description:
+      'This is the  boolean  data type with two possible outcome true or false',
+    example: true,
+  })
+  @Column()
+  taxable: boolean;
+
+  @ApiProperty({
+    description: 'Total tax percentage',
+    example: 18,
+  })
+  @Column()
+  totalTaxRate: number;
+
   @ApiProperty({ type: () => Organization })
   @ManyToOne(() => Organization, (organization) => organization.product)
   organization: Organization;
+
+  @ApiProperty({ type: ProductTax })
+  @OneToMany(() => ProductTax, (productTax) => productTax.product)
+  productTax: ProductTax[];
 
   @ApiProperty({
     description:
