@@ -12,11 +12,11 @@ export class LineItem {
   id: number;
 
   @ApiProperty({
-    description: 'The Service Provided Or Category of product',
+    description: 'The Category of product',
     example: 'ACCOUNTING',
   })
   @Column()
-  Item: string;
+  itemName: string;
 
   @ApiProperty({
     description: 'The description of the item',
@@ -26,11 +26,32 @@ export class LineItem {
   description: string;
 
   @ApiProperty({
+    description: 'The HSN code of the item',
+    example: '1233432',
+  })
+  @Column()
+  HSNorSAC: string;
+
+  @ApiProperty({
     description: 'The  Unit, Hour, Flat rate of the item',
     example: 'good item',
   })
   @Column()
   unit: string;
+
+  @ApiProperty({
+    description: 'The  Unit, Hour, Kg, Flat rate of the item',
+    example: 'kg',
+  })
+  @Column()
+  packagingType: string;
+
+  @ApiProperty({
+    description: 'The  Unit, Hour, Kg, Flat rate of the item',
+    example: 'kg',
+  })
+  @Column()
+  numberOfPackage: string;
 
   @ApiProperty({
     description: 'The  quantity of the item',
@@ -45,6 +66,13 @@ export class LineItem {
   })
   @Column()
   rate: number;
+
+  @ApiProperty({
+    description: 'The tx percentage for the item',
+    example: 150,
+  })
+  @Column()
+  totalTaxRate: number;
 
   @ApiProperty({
     description: 'The multiplication of quantity and rate',

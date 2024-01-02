@@ -12,6 +12,13 @@ import { Invoice } from './typeorm/entities/Invoice';
 import { LineItem } from './typeorm/entities/LineItem';
 import { Product } from './typeorm/entities/Product';
 import { RolesModule } from './roles/roles.module';
+import { OrganizationsModule } from './organizations/organizations.module';
+import { InvoicesModule } from './invoices/invoices.module';
+import { ProductsModule } from './products/products.module';
+import { UsersModule } from './users/users.module';
+import { VehiclesModule } from './vehicles/vehicles.module';
+import { CustomersModule } from './customers/customers.module';
+import { AddressModule } from './address/address.module';
 
 @Module({
   imports: [
@@ -40,6 +47,13 @@ import { RolesModule } from './roles/roles.module';
       synchronize: false,
     }),
     RolesModule,
+    OrganizationsModule,
+    InvoicesModule,
+    ProductsModule,
+    UsersModule,
+    VehiclesModule,
+    CustomersModule,
+    AddressModule,
   ],
   controllers: [AppController],
   providers: [AppService],

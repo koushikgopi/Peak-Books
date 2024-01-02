@@ -5,6 +5,7 @@ import { User } from './User';
 import { Vehicle } from './Vehicle';
 import { Product } from './Product';
 import { Invoice } from './Invoice';
+import { Address } from './Address';
 
 @Entity({ name: 'organizations' })
 export class Organization {
@@ -23,11 +24,43 @@ export class Organization {
   organizationName: string;
 
   @ApiProperty({
+    description: 'The name of the organization',
+    example: 'Abc',
+  })
+  @Column()
+  organizationShortName: string;
+
+  @ApiProperty({
     description: 'This is the description of the organization',
     example: 'This is good organization',
   })
   @Column()
   organizationDescription: string;
+
+  @ApiProperty({ description: 'The Logo of the organization', example: '' })
+  @Column()
+  organizationLogo: string;
+
+  @ApiProperty({
+    description: 'The phone number for the organization',
+    example: '9988998899',
+  })
+  @Column()
+  phoneNo: string;
+
+  @ApiProperty({
+    description: 'The MAIL ID for the organization',
+    example: 'example@gmail.com',
+  })
+  @Column()
+  mailId: string;
+
+  @ApiProperty({
+    description: 'The GST number for the organization',
+    example: '33SDWES2334Q2AW',
+  })
+  @Column()
+  GSTINorUIN: string;
 
   @ApiProperty({ type: Customer })
   @OneToMany(() => Customer, (customer) => customer.organization)
@@ -49,9 +82,9 @@ export class Organization {
   @OneToMany(() => Invoice, (invoice) => invoice.organization)
   invoice: Invoice[];
 
-  //   @ApiProperty({ type: Address })
-  //   @OneToMany(() => Address, (address) => address.organization)
-  //   address: Address[];
+  @ApiProperty({ type: Address })
+  @OneToMany(() => Address, (address) => address.organization)
+  address: Address[];
 
   @ApiProperty({
     description:
@@ -69,60 +102,6 @@ export class Organization {
   })
   @Column()
   isDelete: boolean;
-
-  @ApiProperty({ description: 'The Logo of the organization', example: '' })
-  @Column()
-  organizationLogo: string;
-
-  @ApiProperty({
-    description: 'The phone number for the user',
-    example: '9988998899',
-  })
-  @Column()
-  phoneNo: string;
-
-  @ApiProperty({
-    description: ' The streetNumber where tested by the organization',
-    example: 'AZ 85123',
-  })
-  @Column()
-  streetNumber: string;
-
-  @ApiProperty({
-    description: 'This is the  streetName where tested by the organization',
-    example: 'Aztec Dr',
-  })
-  @Column()
-  streetName: string;
-
-  @ApiProperty({
-    description: ' The apartment where tested by the organization',
-    example: 'MiniPalais',
-  })
-  @Column()
-  apartment: string;
-
-  @ApiProperty({
-    description: ' The city where tested by the organization',
-    example: 'NewYork',
-  })
-  @Column()
-  city: string;
-
-  @ApiProperty({
-    description: 'The state where tested by the organization',
-    example: 'Texas',
-  })
-  @Column()
-  state: string;
-
-  @ApiProperty({
-    description: 'The country',
-
-    example: 'United states',
-  })
-  @Column()
-  country: string;
 
   @ApiProperty({
     description: 'This is created date and time of organization',

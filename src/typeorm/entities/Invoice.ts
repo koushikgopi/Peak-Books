@@ -10,6 +10,7 @@ import { Customer } from './Customer';
 import { Organization } from './Organization';
 import { LineItem } from './LineItem';
 import { Vehicle } from './Vehicle';
+import { Account } from './Account';
 
 @Entity({ name: 'invoices' })
 export class Invoice {
@@ -19,6 +20,76 @@ export class Invoice {
   })
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
+
+  @ApiProperty({
+    description: 'The E way bill number  ',
+    example: '5',
+  })
+  @Column()
+  eWayBillNo: number;
+
+  @ApiProperty({
+    description: 'Delivery note for the invoice',
+    example: '',
+  })
+  @Column()
+  deliveryNote: string;
+
+  @ApiProperty({
+    description: 'The delivery note date for the invoice',
+    example: '2023-08-14',
+  })
+  @Column()
+  deliveryNoteDate: Date;
+
+  @ApiProperty({
+    description: 'The Reference number for the invoice',
+    example: '5',
+  })
+  @Column()
+  referenceNo: number;
+
+  @ApiProperty({
+    description: 'The Reference date for the invoice',
+    example: '2023-08-14',
+  })
+  @Column()
+  referenceDate: Date;
+
+  @ApiProperty({
+    description: 'The extra reference',
+    example: '123qw',
+  })
+  @Column()
+  extraReference: string;
+
+  @ApiProperty({
+    description: 'The order number from the buyer',
+    example: 'qw123',
+  })
+  @Column()
+  buyerOrderNo: string;
+
+  @ApiProperty({
+    description: 'The buyer Order No date for the invoice',
+    example: '2023-08-14',
+  })
+  @Column()
+  buyerOrderNoDate: Date;
+
+  @ApiProperty({
+    description: 'The dispatched doc number',
+    example: 'qw123',
+  })
+  @Column()
+  dispatchedDocNo: string;
+
+  @ApiProperty({
+    description: 'The destination',
+    example: 'qw123',
+  })
+  @Column()
+  destination: string;
 
   @ApiProperty({
     description: 'The email of the company',
@@ -41,7 +112,7 @@ export class Invoice {
   dueDate: Date;
 
   @ApiProperty({
-    description: 'The terms',
+    description: 'The terms of delivery',
     // example: '',
   })
   @Column()
@@ -69,6 +140,14 @@ export class Invoice {
   discountAmount: number;
 
   @ApiProperty({
+    description:
+      'This is the  boolean  data type with two possible outcome true or false',
+    example: true,
+  })
+  @Column()
+  isTaxable: boolean;
+
+  @ApiProperty({
     description: 'The tax',
     example: '5',
   })
@@ -83,6 +162,34 @@ export class Invoice {
   taxAmount: number;
 
   @ApiProperty({
+    description: 'The state tax amount ',
+    example: '5',
+  })
+  @Column('decimal', { precision: 6, scale: 2 })
+  SGSTAmount: number;
+
+  @ApiProperty({
+    description: 'The central tax amount ',
+    example: '5',
+  })
+  @Column('decimal', { precision: 6, scale: 2 })
+  CGSTAmount: number;
+
+  @ApiProperty({
+    description: 'The Integrated tax amount ',
+    example: '5',
+  })
+  @Column('decimal', { precision: 6, scale: 2 })
+  IGSTAmount: number;
+
+  @ApiProperty({
+    description: 'The tax',
+    example: '5',
+  })
+  @Column('decimal', { precision: 6, scale: 2 })
+  roundOff: number;
+
+  @ApiProperty({
     description: 'The total',
     example: '250',
   })
@@ -95,6 +202,13 @@ export class Invoice {
   })
   @Column()
   note: string;
+
+  @ApiProperty({
+    description: 'The declaration for the invoice',
+    example: 'abc',
+  })
+  @Column()
+  declaration: string;
 
   @ApiProperty({
     description: 'The payment status',
@@ -114,6 +228,10 @@ export class Invoice {
   @ManyToOne(() => Customer, (customer) => customer.invoice)
   customer: Customer;
 
+  @ApiProperty({ type: () => Account })
+  @ManyToOne(() => Account, (account) => account.invoice)
+  account: Account;
+
   @ApiProperty({ type: () => Organization })
   @ManyToOne(() => Organization, (organization) => organization.invoice)
   organization: Organization;
@@ -125,14 +243,6 @@ export class Invoice {
   @ApiProperty({ type: () => Vehicle })
   @ManyToOne(() => Vehicle, (vehicle) => vehicle.invoice)
   vehicle: Vehicle;
-
-  @ApiProperty({
-    description:
-      'This is the  boolean  data type with two possible outcome true or false',
-    example: true,
-  })
-  @Column()
-  isTaxable: boolean;
 
   @ApiProperty({
     description:
