@@ -19,6 +19,9 @@ import { UsersModule } from './users/users.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
 import { CustomersModule } from './customers/customers.module';
 import { AddressModule } from './address/address.module';
+import { Account } from './typeorm/entities/Account';
+import { Address } from './typeorm/entities/Address';
+import { ProductTax } from './typeorm/entities/ProductTax';
 
 @Module({
   imports: [
@@ -35,6 +38,8 @@ import { AddressModule } from './address/address.module';
       password: process.env.SQL_PASSWORD,
       database: process.env.SQL_DATABASE,
       entities: [
+        Account,
+        Address,
         Role,
         Customer,
         Organization,
@@ -43,6 +48,7 @@ import { AddressModule } from './address/address.module';
         Invoice,
         LineItem,
         Product,
+        ProductTax,
       ],
       synchronize: false,
     }),
