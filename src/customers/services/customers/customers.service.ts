@@ -50,7 +50,7 @@ export class CustomersService {
           'lastName',
         ],
         defaultSortBy: [['id', 'DESC']],
-        where: { organization: orgData, isDelete: false },
+        where: { organization: orgData },
         filterableColumns: {
           id: [FilterOperator.GTE, FilterOperator.LTE],
         },
@@ -69,7 +69,7 @@ export class CustomersService {
   async getCustomerById(id: number) {
     try {
       const data = await this.customerRepository.findOne({
-        where: { id: id, isDelete: false },
+        where: { id: id },
         relations: ['address'],
       });
 
@@ -160,7 +160,7 @@ export class CustomersService {
   ) {
     try {
       const customerData = await this.customerRepository.findOne({
-        where: { id: id, isDelete: false },
+        where: { id: id },
       });
       if (!customerData) {
         throw new BadRequestException('Customer id not found');
@@ -223,22 +223,13 @@ export class CustomersService {
   async deleteCustomer(id: number) {
     try {
       const data = await this.customerRepository.findOne({
-        where: { id: id, isDelete: false },
+        where: { id: id },
       });
       if (!data) {
         throw new BadRequestException('Customer id not found');
       }
       if (data) {
-        await this.customerRepository.update(
-          {
-            id: id,
-          },
-          {
-            isDelete: true,
-            updatedAt: new Date(),
-            updatedBy: 'Admin',
-          },
-        );
+        await this.customerRepository.delete(id);
       }
     } catch (err) {
       if (err.errno === 1451) {

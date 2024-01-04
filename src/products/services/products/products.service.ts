@@ -43,7 +43,7 @@ export class ProductsService {
         sortableColumns: ['id'],
         searchableColumns: ['id'],
         defaultSortBy: [['id', 'DESC']],
-        where: { organization: orgData, isDelete: false },
+        where: { organization: orgData },
         select: [],
         relations: ['productTax', 'organization'],
         filterableColumns: {
@@ -59,7 +59,7 @@ export class ProductsService {
   async getProductById(id: number) {
     try {
       const data = await this.productRepository.findOne({
-        where: { id: id, isDelete: false },
+        where: { id: id },
         relations: ['productTax'],
       });
       return data;
@@ -196,29 +196,13 @@ export class ProductsService {
         throw new BadRequestException('Product data not found');
       }
       if (productData) {
-        await this.productRepository.update(
-          {
-            id: id,
-          },
-          {
-            isDelete: true,
-            updatedAt: new Date(),
-            updatedBy: 'Admin',
-          },
-        );
         for (let i = 0; i < productData.productTax.length; i++) {
-          const result = await this.productRepository.update(
-            {
-              id: productData.productTax[i].id,
-            },
-            {
-              isDelete: true,
-              updatedAt: new Date(),
-              updatedBy: 'Admin',
-            },
+          const result = await this.productTaxRepository.delete(
+            productData.productTax[i].id,
           );
         }
       }
+      const data = await this.productRepository.delete(id);
     } catch (err) {
       throw new BadRequestException(err.message);
     }

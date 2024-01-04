@@ -36,7 +36,6 @@ export class OrganizationsService {
         sortableColumns: ['id'],
         searchableColumns: ['organizationName', 'organizationDescription'],
         defaultSortBy: [['id', 'DESC']],
-        where: { isDelete: false },
         filterableColumns: {
           id: [FilterOperator.GTE, FilterOperator.LTE],
         },
@@ -49,7 +48,7 @@ export class OrganizationsService {
   async getOrganizationById(id: number) {
     try {
       const data = await this.organizationRepository.findOne({
-        where: { id: id, isDelete: false },
+        where: { id: id },
       });
       return data;
     } catch (error) {
@@ -115,7 +114,7 @@ export class OrganizationsService {
   ) {
     try {
       const data = await this.organizationRepository.findOne({
-        where: { id: id, isDelete: false },
+        where: { id: id },
       });
       await this.organizationRepository.update(
         { id },
@@ -160,18 +159,10 @@ export class OrganizationsService {
   async deleteOrganization(id: number) {
     try {
       const data = await this.organizationRepository.findOne({
-        where: { id: id, isDelete: false },
+        where: { id: id },
       });
       if (data) {
-        await this.organizationRepository.update(
-          {
-            id: id,
-          },
-          {
-            isDelete: true,
-            updatedBy: 'Admin',
-          },
-        );
+        const org = await this.organizationRepository.delete(id);
       }
     } catch (err) {
       if (err.errno === 1451) {
