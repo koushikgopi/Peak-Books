@@ -1,12 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsArray, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
 
 export class UpdateProductDto {
   @ApiProperty({
     description: 'The Service Provided Or Category of product',
     example: 'ACCOUNTING',
   })
-  item: string;
+  itemName: string;
 
   @ApiProperty({
     description: 'The description of the item',
@@ -15,10 +16,29 @@ export class UpdateProductDto {
   description: string;
 
   @ApiProperty({
-    description: 'The  Unit, Hour, Flat rate of the item',
-    example: 'good item',
+    description: 'The HSN code of the item',
+    example: '1233432',
+  })
+  HSNorSAC: string;
+
+  @ApiProperty({
+    description: 'The  Unit, Hour, Kg, Flat rate of the item',
+    example: 'kg',
   })
   unit: string;
+
+  @ApiProperty({
+    //Box, roll
+    description: 'The packaging type ',
+    example: 'box',
+  })
+  packagingType: string;
+
+  @ApiProperty({
+    description: 'The number of packages',
+    example: 2,
+  })
+  numberOfPackage: number;
 
   @ApiProperty({
     description: 'The  quantity of the item',
@@ -33,17 +53,17 @@ export class UpdateProductDto {
   rate: number;
 
   @ApiProperty({
-    description: 'The unique code,such as part number',
-    example: '1256',
-  })
-  sku: string;
-
-  @ApiProperty({
     description:
       'This is the  boolean  data type with two possible outcome true or false',
     example: true,
   })
   taxable: boolean;
+
+  @ApiProperty({
+    description: 'Total tax percentage',
+    example: 18,
+  })
+  totalTaxRate: number;
 
   @ApiProperty({
     description: 'The organization id',
@@ -57,9 +77,59 @@ export class UpdateProductDto {
     example: true,
   })
   isActive: boolean;
+}
 
-  // @ApiProperty({
-  //   description: 'The date and time when the user was updated',
-  // })
-  // updatedAt: Date;
+class UpdateProductTaxDto {
+  @ApiProperty({
+    description: 'The id of product tax',
+
+    example: 1,
+  })
+  id: number;
+
+  @ApiProperty({
+    description: ' The type of the product tax',
+    example: 'CGST',
+  })
+  taxType: string;
+
+  @ApiProperty({
+    description: 'The discount percentage',
+    example: '5',
+  })
+  taxPercentage: number;
+
+  @ApiProperty({
+    description: 'The id of product',
+
+    example: 1,
+  })
+  product: number;
+
+  @ApiProperty({
+    description:
+      'This is the boolean data type with two possible outcome true or false',
+    example: true,
+  })
+  isActive: boolean;
+}
+
+export class UpdateProductAndProductTaxDto {
+  @ApiProperty({
+    type: UpdateProductDto,
+    required: true,
+  })
+  @Type(() => UpdateProductDto)
+  @ValidateNested({ each: true })
+  productValue: UpdateProductDto;
+
+  @ApiProperty({
+    type: UpdateProductTaxDto,
+    isArray: true,
+    required: true,
+  })
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => UpdateProductTaxDto)
+  productTaxValue: UpdateProductTaxDto[];
 }

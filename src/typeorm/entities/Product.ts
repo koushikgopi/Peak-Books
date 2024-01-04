@@ -47,18 +47,19 @@ export class Product {
   unit: string;
 
   @ApiProperty({
-    description: 'The  Unit, Hour, Kg, Flat rate of the item',
-    example: 'kg',
+    //Box, roll
+    description: 'The packaging type ',
+    example: 'box',
   })
   @Column()
   packagingType: string;
 
   @ApiProperty({
-    description: 'The  Unit, Hour, Kg, Flat rate of the item',
-    example: 'kg',
+    description: 'The number of packages',
+    example: 2,
   })
   @Column()
-  numberOfPackage: string;
+  numberOfPackage: number;
 
   @ApiProperty({
     description: 'The  quantity of the item',
