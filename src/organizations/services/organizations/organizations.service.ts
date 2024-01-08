@@ -12,6 +12,7 @@ import {
   Paginated,
   PaginateQuery,
 } from 'nestjs-paginate';
+import { Account } from 'src/typeorm/entities/Account';
 import { Address } from 'src/typeorm/entities/Address';
 import { Organization } from 'src/typeorm/entities/Organization';
 import {
@@ -28,6 +29,8 @@ export class OrganizationsService {
     private organizationRepository: Repository<Organization>,
     @InjectRepository(Address)
     private addressRepository: Repository<Address>,
+    @InjectRepository(Account)
+    private accountRepository: Repository<Account>,
   ) {}
 
   public findAll(query: PaginateQuery): Promise<Paginated<Organization>> {
@@ -61,7 +64,7 @@ export class OrganizationsService {
   ) {
     try {
       const newOrganization = await this.organizationRepository.create({
-        ...organizationDetails,
+        ...organizationDetails.organizationDetails,
         createdAt: new Date(),
         updatedAt: new Date(),
         createdBy: 'Admin',
@@ -100,6 +103,21 @@ export class OrganizationsService {
           console.log(address);
         }
       }
+      for (const element of organizationDetails.accountDetails) {
+        const accountData = await this.accountRepository.create({
+          accountHolderName: element.accountHolderName,
+          bankName: element.bankName,
+          accountNo: element.accountNo,
+          IFSCCode: element.IFSCCode,
+          branch: element.branch,
+          isActive: element.isActive,
+          createdAt: new Date(),
+          createdBy: 'Admin',
+          updatedAt: new Date(),
+          updatedBy: 'Admin',
+        });
+        const data = await this.accountRepository.save(accountData);
+      }
       return {
         org,
         newAddress,
@@ -119,7 +137,7 @@ export class OrganizationsService {
       await this.organizationRepository.update(
         { id },
         {
-          ...updateOrganizationDetails,
+          ...updateOrganizationDetails.organizationDetails,
           updatedAt: new Date(),
           updatedBy: 'Admin',
         },
@@ -149,6 +167,23 @@ export class OrganizationsService {
           },
         );
         console.log(datas);
+      }
+
+      for (const element of updateOrganizationDetails.accountDetails) {
+        const accountData = await this.accountRepository.update(
+          { id: element.id },
+          {
+            accountHolderName: element.accountHolderName,
+            bankName: element.bankName,
+            accountNo: element.accountNo,
+            IFSCCode: element.IFSCCode,
+            branch: element.branch,
+            isActive: element.isActive,
+            updatedAt: new Date(),
+            updatedBy: 'Admin',
+          },
+        );
+        console.log(accountData);
       }
       return { ...organizationData };
     } catch (error) {

@@ -100,7 +100,7 @@ export class ProductsService {
           createdBy: 'Admin',
           updatedAt: new Date(),
           updatedBy: 'Admin',
-          invoice: newProduct,
+          product: newProduct,
         };
       });
       const data1 = await this.dataSource
@@ -146,7 +146,7 @@ export class ProductsService {
             throw new BadRequestException('Product Data not found');
           }
 
-          const productTAxData = await this.productTaxRepository.create({
+          const productTaxData = await this.productTaxRepository.create({
             ...updateProductDetails.productTaxValue[i],
             product: productData,
             createdAt: new Date(),
@@ -155,7 +155,7 @@ export class ProductsService {
             updatedBy: 'Admin',
           });
           const newProductTax = await this.productTaxRepository.save(
-            productTAxData,
+            productTaxData,
           );
         } else {
           const productData = await this.productRepository.findOne({

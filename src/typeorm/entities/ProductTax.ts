@@ -30,6 +30,7 @@ export class ProductTax {
     description: 'The discount percentage',
     example: '5',
   })
+  @Column()
   taxPercentage: number;
 
   @ApiProperty({ type: () => Product })

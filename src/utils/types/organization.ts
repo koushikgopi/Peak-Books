@@ -63,12 +63,44 @@ export type UpdateOrgAddressType = {
   placeId: string;
 };
 
+export type CreateAccountType = {
+  accountHolderName: string;
+
+  bankName: string;
+
+  accountNo: string;
+
+  IFSCCode: string;
+
+  branch: string;
+
+  isActive: boolean;
+};
+
+export type UpdateAccountType = {
+  id: number;
+
+  accountHolderName: string;
+
+  bankName: string;
+
+  accountNo: string;
+
+  IFSCCode: string;
+
+  branch: string;
+
+  isActive: boolean;
+};
+
 export type CreateOrganizationAndAddressType = {
   organizationDetails: createOrganizationType;
   addresses: CreateOrgAddressType[];
+  accountDetails: CreateAccountType[];
 };
 
 export type UpdateOrganizationAndAddressType = {
   organizationDetails: UpdateOrganizationType;
   addresses: UpdateOrgAddressType[];
+  accountDetails: UpdateAccountType[];
 };
