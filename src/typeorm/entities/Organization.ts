@@ -96,14 +96,6 @@ export class Organization {
   isActive: boolean;
 
   @ApiProperty({
-    description:
-      'This is the boolean data type with two possible outcome true or false',
-    example: false,
-  })
-  @Column()
-  isDelete: boolean;
-
-  @ApiProperty({
     description: 'This is created date and time of organization',
   })
   @Column()

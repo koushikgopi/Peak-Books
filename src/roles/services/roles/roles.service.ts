@@ -24,7 +24,6 @@ export class RolesService {
         sortableColumns: ['id'],
         searchableColumns: ['roleName', 'roleDescription'],
         defaultSortBy: [['id', 'DESC']],
-        where: { isDelete: false },
         filterableColumns: {
           id: [FilterOperator.GTE, FilterOperator.LTE],
         },
@@ -42,9 +41,8 @@ export class RolesService {
       if (!data) {
         throw new BadRequestException('role id not found');
       }
-      if (data.isDelete === false) {
-        return data;
-      }
+
+      return data;
     } catch (error) {
       throw new BadRequestException(error.message);
     }
@@ -74,20 +72,21 @@ export class RolesService {
       const roleData = await this.roleRepository.findOne({
         where: { id: id },
       });
-      if (roleData.isDelete === false) {
-        await this.roleRepository.update(
-          { id },
-          {
-            ...updateRoleDetails,
-            updatedAt: new Date(),
-            updatedBy: 'Admin',
-          },
-        );
-        const data = await this.roleRepository.findOne({
-          where: { id },
-        });
-        return { ...data };
+      if (!roleData) {
+        throw new BadRequestException('role id not found');
       }
+      await this.roleRepository.update(
+        { id },
+        {
+          ...updateRoleDetails,
+          updatedAt: new Date(),
+          updatedBy: 'Admin',
+        },
+      );
+      const data = await this.roleRepository.findOne({
+        where: { id },
+      });
+      return { ...data };
     } catch (error) {
       throw new BadRequestException(error.message);
     }
@@ -105,22 +104,8 @@ export class RolesService {
       if (!data) {
         throw new BadRequestException('unable to find appointment');
       }
-      if (data.isDelete === false) {
-        await this.roleRepository.update(
-          {
-            id: id,
-          },
-          {
-            isDelete: true,
-            updatedAt: new Date(),
-            updatedBy: 'Admin',
-          },
-        );
-        // const result = await this.customerRepository.delete({ id });
-        // return result;
-      }
-      // const data = await this.roleRepository.delete({ id });
-      // return data;
+      const roleData = await this.roleRepository.delete(id);
+      return true;
     } catch (err) {
       if (err.errno === 1451) {
         throw new BadRequestException(

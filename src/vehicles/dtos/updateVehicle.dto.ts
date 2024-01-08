@@ -3,34 +3,38 @@ import { IsNotEmpty, IsString } from 'class-validator';
 
 export class UpdateVehicleDto {
   @ApiProperty({
-    description: 'The Service Provided Or Category of product',
-    example: 'ACCOUNTING',
+    description: 'The id',
+    example: '1',
   })
-  vehicleMake: string;
+  id: number;
 
   @ApiProperty({
-    description: 'The description of the vehicle',
-    example: 'good item',
-  })
-  description: string;
-
-  @ApiProperty({
-    description: 'The driver who is driving the  vehicle',
+    description: 'The name of driver',
     example: 'john',
   })
+  @IsNotEmpty()
   nameOfDriver: string;
 
   @ApiProperty({
-    description: 'The  model of the vehicle',
-    example: 'astar',
+    description: 'The Vehicle Make',
+    example: 'Ford',
   })
+  @IsNotEmpty()
+  vehicleMake: string;
+
+  @ApiProperty({
+    description: 'The Model',
+    example: '150',
+  })
+  @IsNotEmpty()
   model: string;
 
   @ApiProperty({
-    description: 'The licenseNo for the vehicle',
-    example: 123123,
+    description: 'The License No.',
+    example: 'S35566',
   })
-  licenseNo: number;
+  @IsNotEmpty()
+  licenseNo: string;
 
   @ApiProperty({
     description: 'The organization id',

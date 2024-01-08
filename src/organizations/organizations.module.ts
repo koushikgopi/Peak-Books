@@ -4,9 +4,10 @@ import { OrganizationsController } from './controllers/organizations/organizatio
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Organization } from 'src/typeorm/entities/Organization';
 import { Address } from 'src/typeorm/entities/Address';
+import { Account } from 'src/typeorm/entities/Account';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Organization, Address])],
+  imports: [TypeOrmModule.forFeature([Organization, Address, Account])],
   providers: [OrganizationsService],
   controllers: [OrganizationsController],
 })

@@ -48,14 +48,6 @@ export class User {
   phoneNo: string;
 
   @ApiProperty({
-    description:
-      'This is the boolean data type with two possible outcome true or false',
-    example: false,
-  })
-  @Column()
-  isDelete: boolean;
-
-  @ApiProperty({
     description: 'The user status for the user',
     example: 'pending',
   })

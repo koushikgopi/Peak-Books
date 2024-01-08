@@ -47,18 +47,19 @@ export class Product {
   unit: string;
 
   @ApiProperty({
-    description: 'The  Unit, Hour, Kg, Flat rate of the item',
-    example: 'kg',
+    //Box, roll
+    description: 'The packaging type ',
+    example: 'box',
   })
   @Column()
   packagingType: string;
 
   @ApiProperty({
-    description: 'The  Unit, Hour, Kg, Flat rate of the item',
-    example: 'kg',
+    description: 'The number of packages',
+    example: 2,
   })
   @Column()
-  numberOfPackage: string;
+  numberOfPackage: number;
 
   @ApiProperty({
     description: 'The  quantity of the item',
@@ -104,14 +105,6 @@ export class Product {
   })
   @Column()
   isActive: boolean;
-
-  @ApiProperty({
-    description:
-      'This is the boolean data type with two possible outcome true or false',
-    example: false,
-  })
-  @Column()
-  isDelete: boolean;
 
   @ApiProperty({
     description: 'The created date and time',

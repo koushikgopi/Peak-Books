@@ -12,6 +12,7 @@ import {
   Paginated,
   PaginateQuery,
 } from 'nestjs-paginate';
+import { Account } from 'src/typeorm/entities/Account';
 import { Address } from 'src/typeorm/entities/Address';
 import { Organization } from 'src/typeorm/entities/Organization';
 import {
@@ -28,6 +29,8 @@ export class OrganizationsService {
     private organizationRepository: Repository<Organization>,
     @InjectRepository(Address)
     private addressRepository: Repository<Address>,
+    @InjectRepository(Account)
+    private accountRepository: Repository<Account>,
   ) {}
 
   public findAll(query: PaginateQuery): Promise<Paginated<Organization>> {
@@ -36,7 +39,6 @@ export class OrganizationsService {
         sortableColumns: ['id'],
         searchableColumns: ['organizationName', 'organizationDescription'],
         defaultSortBy: [['id', 'DESC']],
-        where: { isDelete: false },
         filterableColumns: {
           id: [FilterOperator.GTE, FilterOperator.LTE],
         },
@@ -49,7 +51,7 @@ export class OrganizationsService {
   async getOrganizationById(id: number) {
     try {
       const data = await this.organizationRepository.findOne({
-        where: { id: id, isDelete: false },
+        where: { id: id },
       });
       return data;
     } catch (error) {
@@ -62,7 +64,7 @@ export class OrganizationsService {
   ) {
     try {
       const newOrganization = await this.organizationRepository.create({
-        ...organizationDetails,
+        ...organizationDetails.organizationDetails,
         createdAt: new Date(),
         updatedAt: new Date(),
         createdBy: 'Admin',
@@ -101,6 +103,21 @@ export class OrganizationsService {
           console.log(address);
         }
       }
+      for (const element of organizationDetails.accountDetails) {
+        const accountData = await this.accountRepository.create({
+          accountHolderName: element.accountHolderName,
+          bankName: element.bankName,
+          accountNo: element.accountNo,
+          IFSCCode: element.IFSCCode,
+          branch: element.branch,
+          isActive: element.isActive,
+          createdAt: new Date(),
+          createdBy: 'Admin',
+          updatedAt: new Date(),
+          updatedBy: 'Admin',
+        });
+        const data = await this.accountRepository.save(accountData);
+      }
       return {
         org,
         newAddress,
@@ -115,12 +132,12 @@ export class OrganizationsService {
   ) {
     try {
       const data = await this.organizationRepository.findOne({
-        where: { id: id, isDelete: false },
+        where: { id: id },
       });
       await this.organizationRepository.update(
         { id },
         {
-          ...updateOrganizationDetails,
+          ...updateOrganizationDetails.organizationDetails,
           updatedAt: new Date(),
           updatedBy: 'Admin',
         },
@@ -151,6 +168,23 @@ export class OrganizationsService {
         );
         console.log(datas);
       }
+
+      for (const element of updateOrganizationDetails.accountDetails) {
+        const accountData = await this.accountRepository.update(
+          { id: element.id },
+          {
+            accountHolderName: element.accountHolderName,
+            bankName: element.bankName,
+            accountNo: element.accountNo,
+            IFSCCode: element.IFSCCode,
+            branch: element.branch,
+            isActive: element.isActive,
+            updatedAt: new Date(),
+            updatedBy: 'Admin',
+          },
+        );
+        console.log(accountData);
+      }
       return { ...organizationData };
     } catch (error) {
       throw new BadRequestException(error.message);
@@ -160,18 +194,10 @@ export class OrganizationsService {
   async deleteOrganization(id: number) {
     try {
       const data = await this.organizationRepository.findOne({
-        where: { id: id, isDelete: false },
+        where: { id: id },
       });
       if (data) {
-        await this.organizationRepository.update(
-          {
-            id: id,
-          },
-          {
-            isDelete: true,
-            updatedBy: 'Admin',
-          },
-        );
+        const org = await this.organizationRepository.delete(id);
       }
     } catch (err) {
       if (err.errno === 1451) {

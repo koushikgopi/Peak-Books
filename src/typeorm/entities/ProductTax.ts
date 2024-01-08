@@ -30,6 +30,7 @@ export class ProductTax {
     description: 'The discount percentage',
     example: '5',
   })
+  @Column()
   taxPercentage: number;
 
   @ApiProperty({ type: () => Product })
@@ -46,14 +47,6 @@ export class ProductTax {
   })
   @Column()
   isActive: boolean;
-
-  @ApiProperty({
-    description:
-      'This is the boolean data type with two possible outcome true or false',
-    example: false,
-  })
-  @Column()
-  isDelete: boolean;
 
   @ApiProperty({
     description: ' The date and time when the role was assigned ',

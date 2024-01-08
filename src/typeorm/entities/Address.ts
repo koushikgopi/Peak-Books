@@ -114,14 +114,6 @@ export class Address {
   customer: Customer;
 
   @ApiProperty({
-    description:
-      'This is the boolean data type with two possible outcome true or false',
-    example: false,
-  })
-  @Column()
-  isDelete: boolean;
-
-  @ApiProperty({
     description: 'The date and time',
   })
   @Column()

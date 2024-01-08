@@ -70,14 +70,6 @@ export class Customer {
   @Column()
   isActive: boolean;
 
-  @ApiProperty({
-    description:
-      'This is the boolean data type with two possible outcome true or false',
-    example: false,
-  })
-  @Column()
-  isDelete: boolean;
-
   @ApiProperty({ type: () => Organization })
   @ManyToOne(() => Organization, (organization) => organization.customer)
   organization: Organization;
