@@ -3,52 +3,36 @@ import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateVehicleDto {
   @ApiProperty({
-    description: 'The Service Provided Or Category of product',
-    example: 'ACCOUNTING',
+    description: 'The name of driver',
+    example: 'john',
   })
-  item: string;
+  @IsNotEmpty()
+  nameOfDriver: string;
 
   @ApiProperty({
-    description: 'The description of the item',
-    example: 'good item',
+    description: 'The Vehicle Make',
+    example: 'Ford',
   })
-  description: string;
+  @IsNotEmpty()
+  vehicleMake: string;
 
   @ApiProperty({
-    description: 'The  Unit, Hour, Flat rate of the item',
-    example: 'good item',
+    description: 'The Model',
+    example: '150',
   })
-  unit: string;
+  @IsNotEmpty()
+  model: string;
 
   @ApiProperty({
-    description: 'The  quantity of the item',
-    example: 4,
+    description: 'The License No.',
+    example: 'S35566',
   })
-  quantity: number;
-
-  @ApiProperty({
-    description: 'The Amount for the item',
-    example: 150,
-  })
-  rate: number;
-
-  @ApiProperty({
-    description:
-      'This is the  boolean  data type with two possible outcome true or false',
-    example: true,
-  })
-  taxable: boolean;
+  @IsNotEmpty()
+  licenseNo: string;
 
   @ApiProperty({
     description: 'The organization id',
     example: 1,
   })
   organizationId: number;
-
-  @ApiProperty({
-    description:
-      'This is the  boolean  data type with two possible outcome true or false',
-    example: true,
-  })
-  isActive: boolean;
 }
