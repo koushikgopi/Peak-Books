@@ -103,21 +103,6 @@ export class OrganizationsService {
           console.log(address);
         }
       }
-      for (const element of organizationDetails.accountDetails) {
-        const accountData = await this.accountRepository.create({
-          accountHolderName: element.accountHolderName,
-          bankName: element.bankName,
-          accountNo: element.accountNo,
-          IFSCCode: element.IFSCCode,
-          branch: element.branch,
-          isActive: element.isActive,
-          createdAt: new Date(),
-          createdBy: 'Admin',
-          updatedAt: new Date(),
-          updatedBy: 'Admin',
-        });
-        const data = await this.accountRepository.save(accountData);
-      }
       return {
         org,
         newAddress,
@@ -169,22 +154,6 @@ export class OrganizationsService {
         console.log(datas);
       }
 
-      for (const element of updateOrganizationDetails.accountDetails) {
-        const accountData = await this.accountRepository.update(
-          { id: element.id },
-          {
-            accountHolderName: element.accountHolderName,
-            bankName: element.bankName,
-            accountNo: element.accountNo,
-            IFSCCode: element.IFSCCode,
-            branch: element.branch,
-            isActive: element.isActive,
-            updatedAt: new Date(),
-            updatedBy: 'Admin',
-          },
-        );
-        console.log(accountData);
-      }
       return { ...organizationData };
     } catch (error) {
       throw new BadRequestException(error.message);

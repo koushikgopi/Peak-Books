@@ -19,6 +19,13 @@ export class Product {
   id: number;
 
   @ApiProperty({
+    description: 'The Sequence of the product id',
+    example: '1007',
+  })
+  @Column({ nullable: true })
+  productSequence: number;
+
+  @ApiProperty({
     description: 'The Service Provided Or Category of product',
     example: 'ACCOUNTING',
   })

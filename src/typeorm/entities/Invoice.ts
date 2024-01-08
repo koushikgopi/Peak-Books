@@ -22,6 +22,13 @@ export class Invoice {
   id: number;
 
   @ApiProperty({
+    description: 'The Sequence of the invoice id',
+    example: '1007',
+  })
+  @Column({ nullable: true })
+  invoiceSequence: number;
+
+  @ApiProperty({
     description: 'The E way bill number  ',
     example: '5',
   })

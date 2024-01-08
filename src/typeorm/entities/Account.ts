@@ -3,6 +3,7 @@ import {
   Column,
   Entity,
   OneToMany,
+  ManyToOne,
   //   JoinColumn,
   //   OneToMany,
   //   OneToOne,
@@ -11,6 +12,7 @@ import {
 import { Customer } from './Customer';
 import { User } from './User';
 import { Invoice } from './Invoice';
+import { Organization } from './Organization';
 
 @Entity({ name: 'account' })
 export class Account {
@@ -59,6 +61,10 @@ export class Account {
   @ApiProperty({ type: Invoice })
   @OneToMany(() => Invoice, (invoice) => invoice.account)
   invoice: Invoice[];
+
+  @ApiProperty({ type: () => Organization })
+  @ManyToOne(() => Organization, (organization) => organization.account)
+  organization: Organization;
 
   @ApiProperty({
     description:

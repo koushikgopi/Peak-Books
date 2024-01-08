@@ -140,52 +140,6 @@ class UpdateAddressDto {
   })
   placeId: string;
 }
-
-class UpdateAccountDto {
-  @ApiProperty({
-    description: 'The id',
-    example: '1',
-  })
-  id: number;
-
-  @ApiProperty({
-    description: ' Name of the account holder',
-    example: 'john',
-  })
-  accountHolderName: string;
-
-  @ApiProperty({
-    description: ' Bank name ',
-    example: 'yes bank ',
-  })
-  bankName: string;
-
-  @ApiProperty({
-    description: ' Account number  ',
-    example: '123345121212 ',
-  })
-  accountNo: string;
-
-  @ApiProperty({
-    description: 'IFSC Code Bank',
-    example: 'YES0001 ',
-  })
-  IFSCCode: string;
-
-  @ApiProperty({
-    description: ' Bank branch ',
-    example: 'anna nagar',
-  })
-  branch: string;
-
-  @ApiProperty({
-    description:
-      'This is the boolean data type with two possible outcome true or false',
-    example: true,
-  })
-  isActive: boolean;
-}
-
 export class UpdateOrganizationAndAddressDto {
   @ApiProperty({
     type: UpdateMyOrganizationDto,
@@ -204,14 +158,4 @@ export class UpdateOrganizationAndAddressDto {
   @ValidateNested({ each: true })
   @Type(() => UpdateAddressDto)
   addresses: UpdateAddressDto[];
-
-  @ApiProperty({
-    type: UpdateAccountDto,
-    isArray: true,
-    required: true,
-  })
-  @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => UpdateAccountDto)
-  accountDetails: UpdateAccountDto[];
 }

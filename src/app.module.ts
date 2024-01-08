@@ -22,6 +22,7 @@ import { AddressModule } from './address/address.module';
 import { Account } from './typeorm/entities/Account';
 import { Address } from './typeorm/entities/Address';
 import { ProductTax } from './typeorm/entities/ProductTax';
+import { AccountsModule } from './accounts/accounts.module';
 
 @Module({
   imports: [
@@ -60,6 +61,7 @@ import { ProductTax } from './typeorm/entities/ProductTax';
     VehiclesModule,
     CustomersModule,
     AddressModule,
+    AccountsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -79,9 +79,18 @@ export class ProductsService {
       if (!organizationData) {
         throw new BadRequestException('Organization id not found');
       }
-
+      const lastProductSequenceNumber = await this.productRepository.findOne({
+        where: { organization: organizationData },
+        order: {
+          productSequence: 'DESC',
+        },
+      });
+      const productSeq = lastProductSequenceNumber
+        ? lastProductSequenceNumber.productSequence + 1
+        : 1001;
       const newProduct = this.productRepository.create({
         ...productDetails.productValue,
+        productSequence: productSeq,
         organization: organizationData,
         isActive: true,
         createdAt: new Date(),
