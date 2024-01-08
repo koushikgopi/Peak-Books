@@ -6,6 +6,7 @@ import { Vehicle } from './Vehicle';
 import { Product } from './Product';
 import { Invoice } from './Invoice';
 import { Address } from './Address';
+import { Account } from './Account';
 
 @Entity({ name: 'organizations' })
 export class Organization {
@@ -85,6 +86,10 @@ export class Organization {
   @ApiProperty({ type: Address })
   @OneToMany(() => Address, (address) => address.organization)
   address: Address[];
+
+  @ApiProperty({ type: Account })
+  @OneToMany(() => Account, (account) => account.organization)
+  account: Account[];
 
   @ApiProperty({
     description:

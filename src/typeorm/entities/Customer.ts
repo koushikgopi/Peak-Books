@@ -21,6 +21,13 @@ export class Customer {
   id: number;
 
   @ApiProperty({
+    description: 'The Sequence of the customer id',
+    example: '1007',
+  })
+  @Column({ nullable: true })
+  customerSequence: number;
+
+  @ApiProperty({
     description: 'The first name of the customer',
     example: 'Jhon',
   })

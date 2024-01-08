@@ -98,10 +98,19 @@ export class CustomersService {
       if (!orgData) {
         throw new BadRequestException('Organization id not found');
       }
-
+      const lastCustomerSequenceNumber = await this.customerRepository.findOne({
+        where: { organization: orgData },
+        order: {
+          customerSequence: 'DESC',
+        },
+      });
+      const customerSeq = lastCustomerSequenceNumber
+        ? lastCustomerSequenceNumber.customerSequence + 1
+        : 1001;
       const newCustomer = this.customerRepository.create({
         ...customerDetailsAndAddress.customerDetails,
         role: roleData,
+        customerSequence: customerSeq,
         organization: orgData,
         createdAt: new Date(),
         updatedAt: new Date(),
