@@ -40,11 +40,8 @@ export class UsersController {
   @ApiBadRequestResponse({
     description: 'not able to get a user as a response',
   })
-  getUsers(
-    @Paginate() query: PaginateQuery,
-    @Query('organizationId', ParseIntPipe) organizationId: number,
-  ): Promise<Paginated<User>> {
-    const result = this.userService.findAll(query, organizationId);
+  getUsers(@Query('organizationId', ParseIntPipe) organizationId: number) {
+    const result = this.userService.findAll(organizationId);
     if (result) {
       return result;
     } else {
@@ -129,43 +126,43 @@ export class UsersController {
     }
   }
 
-  @ApiBody({
-    schema: {
-      properties: {
-        utility: { type: '' },
-        userId: { type: '' },
-      },
-    },
-  })
-  @ApiOkResponse({
-    description: 'Updated utility for a given organization id',
-  })
-  @ApiBadRequestResponse({
-    description: 'Not able to update utility for a given organization id',
-  })
-  @Patch('addOrgToUser/:organizationId')
-  async updateOrganizationWithUtility(
-    @Param('organizationId') organizationId: number,
-    @Body('userId') userId: string,
-  ) {
-    /**
-     * To check whether the utility is updated for a given organization id
-     */
+  // @ApiBody({
+  //   schema: {
+  //     properties: {
+  //       utility: { type: '' },
+  //       userId: { type: '' },
+  //     },
+  //   },
+  // })
+  // @ApiOkResponse({
+  //   description: 'Updated utility for a given organization id',
+  // })
+  // @ApiBadRequestResponse({
+  //   description: 'Not able to update utility for a given organization id',
+  // })
+  // @Patch('addOrgToUser/:organizationId')
+  // async updateOrganizationWithUtility(
+  //   @Param('organizationId') organizationId: number,
+  //   @Body('userId') userId: string,
+  // ) {
+  //   /**
+  //    * To check whether the utility is updated for a given organization id
+  //    */
 
-    const result = await this.userService.updateOrganizationWithUser(
-      organizationId,
-      userId,
-    );
+  //   const result = await this.userService.updateOrganizationWithUser(
+  //     organizationId,
+  //     userId,
+  //   );
 
-    if (result) {
-      return {
-        msg: 'Updated successfully',
-        result: result,
-      };
-    } else {
-      throw new HttpException('Unable to update', HttpStatus.BAD_REQUEST);
-    }
-  }
+  //   if (result) {
+  //     return {
+  //       msg: 'Updated successfully',
+  //       result: result,
+  //     };
+  //   } else {
+  //     throw new HttpException('Unable to update', HttpStatus.BAD_REQUEST);
+  //   }
+  // }
 
   @Delete(':id')
   @ApiOkResponse({

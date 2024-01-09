@@ -24,23 +24,16 @@ export class UsersService {
     private organizationRepository: Repository<Organization>,
     private dataSource: DataSource,
   ) {}
-  public async findAll(
-    query: PaginateQuery,
-    organizationId: number,
-  ): Promise<Paginated<User>> {
+  public async findAll(organizationId: number) {
     try {
       const orgData = await this.organizationRepository.findOne({
         where: { id: organizationId },
       });
-      const users = paginate(query, this.userRepository, {
-        sortableColumns: ['id'],
-        searchableColumns: ['username', 'email', 'firstName', 'lastName'],
-        defaultSortBy: [['id', 'DESC']],
+      if (!orgData) {
+        throw new BadRequestException('Organization id not found');
+      }
+      const users = await this.userRepository.find({
         where: { organization: orgData },
-        filterableColumns: {
-          id: [FilterOperator.GTE, FilterOperator.LTE],
-        },
-        relations: ['role', 'organization'],
       });
       return users;
     } catch (error) {
@@ -178,27 +171,27 @@ export class UsersService {
     }
   }
 
-  async updateOrganizationWithUser(organizationId: number, userId: string) {
-    try {
-      const newOrgData = await this.organizationRepository.find({
-        where: { id: organizationId },
-      });
-      if (!newOrgData) {
-        throw new BadRequestException('Organization id not found');
-      }
+  // async updateOrganizationWithUser(organizationId: number, userId: string) {
+  //   try {
+  //     const newOrgData = await this.organizationRepository.find({
+  //       where: { id: organizationId },
+  //     });
+  //     if (!newOrgData) {
+  //       throw new BadRequestException('Organization id not found');
+  //     }
 
-      await this.userRepository.update(
-        { id: +userId },
-        {
-          organization: newOrgData[0],
-          updatedAt: new Date(),
-          updatedBy: 'Admin',
-        },
-      );
+  //     await this.userRepository.update(
+  //       { id: +userId },
+  //       {
+  //         organization: newOrgData[0],
+  //         updatedAt: new Date(),
+  //         updatedBy: 'Admin',
+  //       },
+  //     );
 
-      return { ...newOrgData };
-    } catch (error) {
-      throw new BadRequestException(error.message);
-    }
-  }
+  //     return { ...newOrgData };
+  //   } catch (error) {
+  //     throw new BadRequestException(error.message);
+  //   }
+  // }
 }
