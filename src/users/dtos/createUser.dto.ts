@@ -9,6 +9,13 @@ export class CreateUserDto {
   username: string;
 
   @ApiProperty({
+    description: 'The password for the user',
+    example: 'example@123',
+  })
+  @IsNotEmpty()
+  password: string;
+
+  @ApiProperty({
     description: 'The email id for the user',
     example: 'example@gmail.com',
   })
@@ -41,14 +48,13 @@ export class CreateUserDto {
     description: 'The user status for the user',
     example: 'pending',
   })
-  // @IsNotEmpty()
   userStatus: string;
 
-  @ApiProperty({
-    description: 'The role id for the user',
-    example: 2,
-  })
-  roleId: number;
+  // @ApiProperty({
+  //   description: 'The role id for the user',
+  //   example: 1,
+  // })
+  // roleId: number;
 
   @ApiProperty({
     description: 'The organization id for the user',

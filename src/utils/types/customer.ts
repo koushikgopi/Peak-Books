@@ -17,6 +17,7 @@ export type CreateCustomerType = {
 };
 
 export type CreateAddressType = {
+  objectType: string;
   addressType: string;
   addressLine1: string;
   addressLine2: string;
@@ -50,6 +51,7 @@ export type UpdateCustomerType = {
 
 export type UpdateAddressType = {
   id: number;
+  objectType: string;
   addressType: string;
   addressLine1: string;
   addressLine2: string;

@@ -2,10 +2,16 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsArray, ValidateNested } from 'class-validator';
 
-class CreateAddress {
+class UpdateAddress {
+  @ApiProperty({
+    description: 'The id',
+    example: '1',
+  })
+  id: number;
+
   @ApiProperty({
     description: 'The object type - organization,customer,device,tester',
-    example: 'Customer',
+    example: 'Address',
   })
   objectType: string;
 
@@ -28,8 +34,8 @@ class CreateAddress {
   addressLine2: string;
 
   @ApiProperty({
-    description: 'The name of a city',
-    example: 'Texas',
+    description: 'The city',
+    example: 'LosAngles',
   })
   city: string;
 
@@ -40,7 +46,7 @@ class CreateAddress {
   state: string;
 
   @ApiProperty({
-    description: 'The state',
+    description: 'The name of a state',
     example: 'Texas',
   })
   stateCode: string;
@@ -52,8 +58,8 @@ class CreateAddress {
   country: string;
 
   @ApiProperty({
-    description: ' The zipCode',
-    example: '62512',
+    description: 'The zip code',
+    example: '625014',
   })
   zipCode: string;
 
@@ -76,14 +82,14 @@ class CreateAddress {
   placeId: string;
 }
 
-export class CreateAddressDto {
+export class UpdateAddressDto {
   @ApiProperty({
-    type: CreateAddress,
+    type: UpdateAddress,
     isArray: true,
     required: true,
   })
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => CreateAddress)
-  addresses: CreateAddress[];
+  @Type(() => UpdateAddress)
+  addresses: UpdateAddress[];
 }
