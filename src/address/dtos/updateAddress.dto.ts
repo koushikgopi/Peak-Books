@@ -80,6 +80,18 @@ class UpdateAddress {
     example: 'ChIJgUbEo8cfqokR5lP9_Wh_DaM',
   })
   placeId: string;
+
+  @ApiProperty({
+    description: 'The organization id',
+    example: 1,
+  })
+  organization?: number;
+
+  @ApiProperty({
+    description: 'The customer id',
+    example: 1,
+  })
+  customer?: number;
 }
 
 export class UpdateAddressDto {

@@ -74,6 +74,18 @@ class CreateAddress {
     example: 'ChIJgUbEo8cfqokR5lP9_Wh_DaM',
   })
   placeId: string;
+
+  @ApiProperty({
+    description: 'The organization id',
+    example: 1,
+  })
+  organizationId?: number;
+
+  @ApiProperty({
+    description: 'The customer id',
+    example: 1,
+  })
+  customerId?: number;
 }
 
 export class CreateAddressDto {
