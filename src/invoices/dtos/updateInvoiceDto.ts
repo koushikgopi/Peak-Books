@@ -4,8 +4,73 @@ import { Type } from 'class-transformer';
 
 export class UpdateInvoiceDto {
   @ApiProperty({
-    description: 'The email of the company',
+    description: 'The E way bill number  ',
+    example: '5',
+  })
+  eWayBillNo: number;
 
+  @ApiProperty({
+    description: 'Delivery note for the invoice',
+    example: '',
+  })
+  deliveryNote: string;
+
+  @ApiProperty({
+    description: 'The delivery note date for the invoice',
+    example: '2023-08-14',
+  })
+  deliveryNoteDate: Date;
+
+  @ApiProperty({
+    description: 'The Reference number for the invoice',
+    example: '5',
+  })
+  referenceNo: number;
+
+  @ApiProperty({
+    description: 'The Reference date for the invoice',
+    example: '2023-08-14',
+  })
+  referenceDate: Date;
+
+  @ApiProperty({
+    description: 'The extra reference',
+    example: '123qw',
+  })
+  extraReference: string;
+
+  @ApiProperty({
+    description: 'The order number from the buyer',
+    example: 'qw123',
+  })
+  buyerOrderNo: string;
+
+  @ApiProperty({
+    description: 'The buyer Order No date for the invoice',
+    example: '2023-08-14',
+  })
+  buyerOrderNoDate: Date;
+
+  @ApiProperty({
+    description: 'The dispatched doc number',
+    example: 'qw123',
+  })
+  dispatchedDocNo: string;
+
+  @ApiProperty({
+    description: 'The destination',
+    example: 'qw123',
+  })
+  destination: string;
+
+  @ApiProperty({
+    description: 'Bill of Landing/ LR-RR No',
+    example: 'qw123',
+  })
+  LR_RRNo: string;
+
+  @ApiProperty({
+    description: 'The email of the company',
     example: 'abc@gmail.com',
   })
   email: string;
@@ -18,29 +83,19 @@ export class UpdateInvoiceDto {
 
   @ApiProperty({
     description: 'The due date',
-    example: '2023-08-14',
   })
   dueDate: Date;
 
   @ApiProperty({
-    description: 'The terms',
-
-    // example: '',
+    description: 'The terms of delivery',
   })
   terms: string;
 
   @ApiProperty({
     description: 'The sub total amount',
-
     example: '5000',
   })
   subTotal: number;
-
-  @ApiProperty({
-    description: 'The discount Identifier',
-    example: 'Fixed',
-  })
-  discountIdentifier: string;
 
   @ApiProperty({
     description: 'The discount percentage',
@@ -55,6 +110,13 @@ export class UpdateInvoiceDto {
   discountAmount: number;
 
   @ApiProperty({
+    description:
+      'This is the  boolean  data type with two possible outcome true or false',
+    example: true,
+  })
+  isTaxable: boolean;
+
+  @ApiProperty({
     description: 'The tax',
     example: '5',
   })
@@ -67,118 +129,89 @@ export class UpdateInvoiceDto {
   taxAmount: number;
 
   @ApiProperty({
-    description: 'The total',
+    description: 'The state tax amount ',
+    example: '5',
+  })
+  SGSTAmount: number;
 
+  @ApiProperty({
+    description: 'The central tax amount ',
+    example: '5',
+  })
+  CGSTAmount: number;
+
+  @ApiProperty({
+    description: 'The Integrated tax amount ',
+    example: '5',
+  })
+  IGSTAmount: number;
+
+  @ApiProperty({
+    description: 'The tax',
+    example: '5',
+  })
+  roundOff: number;
+
+  @ApiProperty({
+    description: 'The total',
     example: '250',
   })
   total: number;
 
   @ApiProperty({
-    description: 'The payment status',
+    description: 'The note',
+    example: 'abc',
+  })
+  note: string;
 
+  @ApiProperty({
+    description: 'The declaration for the invoice',
+    example: 'abc',
+  })
+  declaration: string;
+
+  @ApiProperty({
+    description: 'The payment status',
     example: 'completed',
   })
   paymentStatus: string;
 
   @ApiProperty({
     description: 'The invoice status',
-
-    example: 'Paid',
+    example: 'completed',
   })
   invoiceStatus: string;
 
   @ApiProperty({
-    description: 'The customer id',
+    description:
+      'This is the boolean data type with two possible outcome true or false',
+    example: true,
+  })
+  isActive: boolean;
 
+  @ApiProperty({
+    description: 'The customer id',
     example: 1,
   })
   customer: number;
 
   @ApiProperty({
-    description: 'The note of the invoice',
-
-    example: 'abc',
+    description: 'The account id',
+    example: 1,
   })
-  note: string;
+  account: number;
 
   @ApiProperty({
     description: 'The organization id',
-
     example: 1,
   })
   organization: number;
 
   @ApiProperty({
-    description: 'the tester Id',
-
+    description: 'The vehicle id',
     example: 1,
   })
-  tester: number;
-
-  @ApiProperty({
-    description:
-      'This is the boolean data type with two possible outcome true or false',
-
-    example: true,
-  })
-  @IsNotEmpty()
-  isActive: boolean;
-
-  @ApiProperty({
-    description:
-      'This is the boolean data type with two possible outcome true or false',
-    example: true,
-  })
-  @IsNotEmpty()
-  isTaxable: boolean;
-
-  @ApiProperty({
-    description: 'The city',
-    example: 'Los Angles',
-  })
-  city?: string;
-
-  @ApiProperty({
-    description: 'The city tax',
-    example: 1.5,
-  })
-  cityTax?: number;
-
-  @ApiProperty({
-    description: 'The  city tax amount',
-    example: 100,
-  })
-  cityTaxAmount?: number;
-
-  @ApiProperty({
-    description: 'The city',
-    example: 'Washington',
-  })
-  state?: string;
-
-  @ApiProperty({
-    description: 'The city tax',
-    example: 1.5,
-  })
-  stateTax?: number;
-
-  @ApiProperty({
-    description: 'The  city tax amount',
-    example: 100,
-  })
-  stateTaxAmount?: number;
-
-  @ApiProperty({
-    description: 'The location code',
-    example: 'WA',
-  })
-  stateShort?: string;
-
-  @ApiProperty({
-    description: 'The location code',
-    example: 'WA_1725',
-  })
-  locationCode?: string;
+  vehicle: number;
 }
 
 class UpdateLineItemDto {
@@ -188,54 +221,66 @@ class UpdateLineItemDto {
     example: 1,
   })
   id: number;
-  @ApiProperty({
-    description: 'The Service Provided Or Category of product',
 
+  @ApiProperty({
+    description: 'The Category of product',
     example: 'ACCOUNTING',
   })
-  Item: string;
+  itemName: string;
 
   @ApiProperty({
     description: 'The description of the item',
-
     example: 'good item',
   })
   description: string;
 
   @ApiProperty({
-    description: 'The  Unit, Hour, Flat rate of the item',
+    description: 'The HSN code of the item',
+    example: '1233432',
+  })
+  HSNorSAC: string;
 
+  @ApiProperty({
+    description: 'The  Unit, Hour, Flat rate of the item',
     example: 'good item',
   })
   unit: string;
 
   @ApiProperty({
-    description: 'The  quantity of the item',
+    description: 'The  Unit, Hour, Kg, Flat rate of the item',
+    example: 'kg',
+  })
+  packagingType: string;
 
+  @ApiProperty({
+    description: 'The  Unit, Hour, Kg, Flat rate of the item',
+    example: 'kg',
+  })
+  numberOfPackage: string;
+
+  @ApiProperty({
+    description: 'The  quantity of the item',
     example: 4,
   })
   quantity: number;
 
   @ApiProperty({
     description: 'The Amount for the item',
-
     example: 150,
   })
   rate: number;
 
   @ApiProperty({
-    description: 'The multiplication of quantity and rate',
+    description: 'The tx percentage for the item',
+    example: 150,
+  })
+  totalTaxRate: number;
 
+  @ApiProperty({
+    description: 'The multiplication of quantity and rate',
     example: 590,
   })
   amount: number;
-
-  @ApiProperty({
-    description: 'The invoiceId',
-
-    example: 1,
-  })
-  invoice: number;
 
   @ApiProperty({
     description:
