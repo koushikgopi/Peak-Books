@@ -25,6 +25,7 @@ import { ProductTax } from './typeorm/entities/ProductTax';
 import { AccountsModule } from './accounts/accounts.module';
 import { Project } from './typeorm/entities/Project';
 import { Config } from './typeorm/entities/Config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -66,6 +67,7 @@ import { Config } from './typeorm/entities/Config';
     CustomersModule,
     AddressModule,
     AccountsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
