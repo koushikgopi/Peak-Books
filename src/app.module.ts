@@ -23,6 +23,8 @@ import { Account } from './typeorm/entities/Account';
 import { Address } from './typeorm/entities/Address';
 import { ProductTax } from './typeorm/entities/ProductTax';
 import { AccountsModule } from './accounts/accounts.module';
+import { Project } from './typeorm/entities/Project';
+import { Config } from './typeorm/entities/Config';
 
 @Module({
   imports: [
@@ -50,6 +52,8 @@ import { AccountsModule } from './accounts/accounts.module';
         LineItem,
         Product,
         ProductTax,
+        Project,
+        Config,
       ],
       synchronize: false,
     }),
