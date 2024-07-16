@@ -9,6 +9,13 @@ export class UpdateUserDto {
   username: string;
 
   @ApiProperty({
+    description: 'The password for the user',
+    example: 'example@123',
+  })
+  @IsNotEmpty()
+  password: string;
+
+  @ApiProperty({
     description: 'The email id for the user',
     example: 'example@gmail.com',
   })
@@ -45,16 +52,10 @@ export class UpdateUserDto {
   userStatus: string;
 
   // @ApiProperty({
-  //   description: 'The  tester id for the user',
+  //   description: 'The role id for the user',
   //   example: 1,
   // })
-  // tester: number;
-
-  @ApiProperty({
-    description: 'The role id for the user',
-    example: 2,
-  })
-  role: number;
+  // role: number;
 
   @ApiProperty({
     description: 'The organization id for the user',

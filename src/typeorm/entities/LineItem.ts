@@ -50,6 +50,7 @@ export class LineItem {
     description: 'The  Unit, Hour, Kg, Flat rate of the item',
     example: 'kg',
   })
+  //doubt
   @Column()
   numberOfPackage: string;
 

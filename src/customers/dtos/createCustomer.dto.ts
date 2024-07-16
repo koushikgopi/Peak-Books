@@ -60,7 +60,7 @@ export class CreateCustomerDto {
   organizationId: number;
 }
 
-class CreateAddressDto {
+class CreateAddress {
   @ApiProperty({
     description: 'The object type - organization,customer,device,tester',
     example: 'Customer',
@@ -144,12 +144,12 @@ export class CreateCustomerAndAddressDto {
   customerDetails: CreateCustomerDto;
 
   @ApiProperty({
-    type: CreateAddressDto,
+    type: CreateAddress,
     isArray: true,
     required: true,
   })
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => CreateAddressDto)
-  addresses: CreateAddressDto[];
+  @Type(() => CreateAddress)
+  addresses: CreateAddress[];
 }
