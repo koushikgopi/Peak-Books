@@ -62,10 +62,10 @@ export class CreateMyOrganizationDto {
   isActive: boolean;
 }
 
-class CreateAddressDto {
+class CreateAddressForOrgDto {
   @ApiProperty({
     description: 'The object type - organization,customer,device,tester',
-    example: 'Customer',
+    example: 'Organization',
   })
   objectType: string;
 
@@ -146,12 +146,12 @@ export class CreateOrganizationAndAddressDto {
   organizationDetails: CreateMyOrganizationDto;
 
   @ApiProperty({
-    type: CreateAddressDto,
+    type: CreateAddressForOrgDto,
     isArray: true,
     required: true,
   })
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => CreateAddressDto)
-  addresses: CreateAddressDto[];
+  @Type(() => CreateAddressForOrgDto)
+  addresses: CreateAddressForOrgDto[];
 }

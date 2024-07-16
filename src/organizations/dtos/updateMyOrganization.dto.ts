@@ -61,7 +61,7 @@ export class UpdateMyOrganizationDto {
   isActive: boolean;
 }
 
-class UpdateAddressDto {
+class UpdateAddressForOrgDto {
   @ApiProperty({
     description: 'The id',
     example: '1',
@@ -150,12 +150,12 @@ export class UpdateOrganizationAndAddressDto {
   organizationDetails: UpdateMyOrganizationDto;
 
   @ApiProperty({
-    type: UpdateAddressDto,
+    type: UpdateAddressForOrgDto,
     isArray: true,
     required: true,
   })
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => UpdateAddressDto)
-  addresses: UpdateAddressDto[];
+  @Type(() => UpdateAddressForOrgDto)
+  addresses: UpdateAddressForOrgDto[];
 }
