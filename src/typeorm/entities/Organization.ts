@@ -7,6 +7,8 @@ import { Product } from './Product';
 import { Invoice } from './Invoice';
 import { Address } from './Address';
 import { Account } from './Account';
+import { Config } from './Config';
+import { Project } from './Project';
 
 @Entity({ name: 'organizations' })
 export class Organization {
@@ -125,4 +127,12 @@ export class Organization {
   })
   @Column()
   updatedBy: string;
+
+  @ApiProperty({ type: Config })
+  @OneToMany(() => Config, (config) => config.organization)
+  config: Config[];
+
+  @ApiProperty({ type: Project })
+  @OneToMany(() => Project, (project) => project.organization)
+  project: Project[];
 }
